@@ -6,6 +6,7 @@ Uses Streamlit, tabs on page, sankey graph using plotly and sqllite database
 - [Emoji Cheat Sheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
 - [Create custom Azure Templates](https://portal.azure.com/#create/Microsoft.Template)
 - [YouTube Video on deploying Streamlit to Azure](https://youtu.be/2toRzAYT8yo)
+- [Bootstrap Icons](https://icons.getbootstrap.com)
 
 # Instructions
 - On VDI 
