@@ -65,9 +65,17 @@ with st.form("saved_periods_key"):
     submitted = st.form_submit_button("Plot Period")
     if submitted:
         comment = "Test Comment ..."
-        incomes = {'Salary': 10000000, 'Blog': 20000, 'Other Income': 300000}
+        incomes = {'Salary': 1000, 'Blog': 2000, 'Other Income': 3000}
         expenses = {'Rent': 20, 'Utilities': 30, 'Groceries': 40, 'Car': 50, 'Other Expenses': 60, 'Saving': 70}
 
-        
+        total_income = sum(incomes.values())
+        total_expenses = sum(expenses.values())
+        remaining_budget = total_income - total_expenses
+
+        income_col, expense_col, remaining_col = st.columns(3)
+        income_col.metric("Total Income" , f"{total_income} {currency}")
+        expense_col.metric("Total Expenses", f"{total_expenses} {currency}")
+        remaining_col.metric("RemainingBudget", f"{remaining_budget} {currency}")
+        st.text(f"Comment : {comment}")
 
 
