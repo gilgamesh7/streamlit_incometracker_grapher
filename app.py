@@ -21,6 +21,14 @@ st.title(f"{page_title} {page_icon}")
 years = [datetime.today().year-1, datetime.today().year, datetime.today().year+1]
 months = list(calendar.month_name[1:])
 
+# Hide Streamlit Styling
+hide_st_style = """
+    <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+    </style>
+"""
 
 # Navigation Menu
 selected = option_menu(
