@@ -7,9 +7,11 @@ Uses Streamlit, tabs on page, sankey graph using plotly and sqllite database
 - [Create custom Azure Templates](https://portal.azure.com/#create/Microsoft.Template)
 - [YouTube Video on deploying Streamlit to Azure](https://youtu.be/2toRzAYT8yo)
 - [Bootstrap Icons](https://icons.getbootstrap.com)
+- [Deta SDK Reference](https://deta.space/docs/en/reference/base/sdk)
 
 # Instructions
 - On VDI 
+    - export DETA_KEY=<key_value from DETA>
     - Check streamlit : python3 -m streamlit hello
     - Run app : streamlit run app.py
 - On Azure

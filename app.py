@@ -5,6 +5,13 @@ import plotly.graph_objects as go
 import calendar
 from datetime import datetime
 
+import database as db
+
+def get_all_periods():
+    items = db.fetch_all_periods()
+    periods = [item["key"] for item in items]
+    return periods
+
 # Set up global values
 incomes = ["Salary", "Blog", "Other Income"]
 expenses = ["Rent", "Utilities", "Groceries", "Car", "Other Expenses", "Saving"]
@@ -12,6 +19,7 @@ currency = "NZD"
 page_title = "Income & Expense Tracker"
 page_icon = ":money_with_wings:"
 layout = "centered" # wide is another option
+
 
 # Basic webpage configuration
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
@@ -62,7 +70,7 @@ if selected == "Data Entry":
 
         # Text area
         with st.expander("Comments"):
-            st.text_area("",placeholder="Enter a comment here ...")
+            comment = st.text_area("",placeholder="Enter a comment here ...")
 
         "---"
 
@@ -72,7 +80,7 @@ if selected == "Data Entry":
             incomes_dict = {income : st.session_state[income] for income in incomes}
             expenses_dict = {expense : st.session_state[expense] for expense in expenses}
             
-
+            db.insert_period(period, incomes_dict, expenses_dict, comment)
             # Success message in green
             st.success("Financial data saved successfully")
 
@@ -81,12 +89,16 @@ if selected == "Data Entry":
 if selected == "Data Visualization":
     st.header("Data Visualization")
     with st.form("saved_periods_key"):
-        period = st.selectbox("Select Period:", ["2022_March"])
+        period = st.selectbox("Select Period:", get_all_periods())
         submitted = st.form_submit_button("Plot Period")
         if submitted:
-            comment = "Test Comment ..."
-            incomes = {'Salary': 1000, 'Blog': 2000, 'Other Income': 3000}
-            expenses = {'Rent': 20, 'Utilities': 30, 'Groceries': 40, 'Car': 50, 'Other Expenses': 60, 'Saving': 70}
+            # comment = "Test Comment ..."
+            # incomes = {'Salary': 1000, 'Blog': 2000, 'Other Income': 3000}
+            # expenses = {'Rent': 20, 'Utilities': 30, 'Groceries': 40, 'Car': 50, 'Other Expenses': 60, 'Saving': 70}
+            period_data = db.get_period(period)
+            comment = period_data.get("comment")
+            expenses = period_data.get("expenses")
+            incomes = period_data.get("incomes")
 
             # Aggregate metrics
             total_income = sum(incomes.values())
