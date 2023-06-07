@@ -1,7 +1,20 @@
 from deta import Deta 
 import os
+import platform
 
-DETA_KEY = os.getenv("DETA_KEY")
+from azure.keyvault.secrets import SecretClient
+from azure.identity import DefaultAzureCredential
+
+current_platform = platform.system()
+if  current_platform == 'Darwin' or current_platform == 'Windows' :
+    DETA_KEY = os.getenv("DETA_KEY")
+else:
+    KVUri = "https://kv-deta-key.vault.azure.net"
+
+    credential = DefaultAzureCredential()
+    client = SecretClient(vault_url=KVUri, credential=credential)
+
+    DETA_KEY = client.get_secret("DETA-KEY")
 
 deta = Deta(DETA_KEY)
 
